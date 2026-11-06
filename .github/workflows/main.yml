@@ -1,0 +1,23 @@
+name: Build 2far Bitcrusher (Windows VST3)
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar
+        run: cmake -B build -A x64
+
+      - name: Compilar
+        run: cmake --build build --config Release --target TwoFarBitcrusher_VST3
+
+      - name: Subir el plugin
+        uses: actions/upload-artifact@v4
+        with:
+          name: 2far-Bitcrusher-VST3-Windows
+          path: build/TwoFarBitcrusher_artefacts/Release/VST3/
